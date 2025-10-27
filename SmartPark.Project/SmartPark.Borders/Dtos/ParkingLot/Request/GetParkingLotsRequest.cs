@@ -1,0 +1,8 @@
+﻿namespace SmartPark.Borders.Dtos.ParkingLot.Request
+{
+    public record GetParkingLotsRequest
+    {
+        public int PageNumber { get; init; } = 1;
+        public int PageSize { get; init; } = 10;
+    }
+}
