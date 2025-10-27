@@ -1,0 +1,18 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/SmartPark.Project/.vs/SmartPark.Project
+/SmartPark.Project/SmartPark.Api/obj
+/SmartPark.Project/SmartPark.Api/bin/Debug/net9.0
+/SmartPark.Project/SmartPark.Application/bin/Debug/net9.0
+/SmartPark.Project/SmartPark.Application/obj
+/SmartPark.Project/SmartPark.Borders/bin/Debug/net9.0
+/SmartPark.Project/SmartPark.Domain/bin/Debug/net9.0
+/SmartPark.Project/SmartPark.Domain/obj/Debug/net9.0
+/SmartPark.Project/SmartPark.Infrastructure/bin/Debug/net9.0
+/SmartPark.Project/SmartPark.Domain/obj
+/SmartPark.Project/SmartPark.Infrastructure/obj
+/SmartPark.Project/.vs/ProjectEvaluation
+/SmartPark.Project/SmartPark.Borders/obj
