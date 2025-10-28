@@ -1,5 +1,5 @@
 ﻿using AutoBogus;
-using Microsoft.EntityFrameworkCore;    
+using Microsoft.EntityFrameworkCore;
 using SmartPark.Borders.Interfaces.Repositories;
 using SmartPark.Borders.Shared.Response;
 using SmartPark.Domain.Entities.ParkingLot;
@@ -15,7 +15,7 @@ namespace SmartPark.Infrastructure.Repositories
         {
             _context = context;
 
-            GetParkingLotEntityMockedResult();
+            // GetParkingLotEntityMockedResult();
         }
 
         public async Task<IEnumerable<ParkingLotEntity>> GetAllAsync(int pageNumber, int pageSize)

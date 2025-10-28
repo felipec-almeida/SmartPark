@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartPark.Borders.Shared.Response;
 
 namespace SmartPark.Api.Extensions
 {
@@ -15,6 +16,9 @@ namespace SmartPark.Api.Extensions
                         Message = "Recurso não encontrado."
                     });
                 }
+
+                if (typeof(T).Equals(typeof(PostResponse)))
+                    return new CreatedResult(string.Empty, result);
 
                 return new OkObjectResult(result);
             }

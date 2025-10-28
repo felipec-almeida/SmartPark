@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartPark.Borders.Interfaces.Repositories;
+using SmartPark.Borders.Interfaces.UseCases.ParkingLot;
+using SmartPark.Borders.Shared.Response;
+using SmartPark.Domain.Entities.ParkingLot;
 
 namespace SmartPark.Application.UseCases.ParkingLot
 {
-    internal class PostParkingLotUseCase
+    public class PostParkingLotUseCase : IPostParkingLotUseCase
     {
+        private readonly IParkingLotRepository _parkingLotRepository;
+
+        public PostParkingLotUseCase(IParkingLotRepository parkingLotRepository)
+        {
+            _parkingLotRepository = parkingLotRepository;
+        }
+
+        public async Task<PostResponse> Execute(ParkingLotEntity request)
+        {
+            return await _parkingLotRepository.PostAsync(request);
+        }
     }
 }
