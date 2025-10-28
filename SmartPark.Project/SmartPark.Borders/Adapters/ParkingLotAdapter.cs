@@ -1,4 +1,6 @@
-﻿using SmartPark.Borders.Dtos.ParkingLot.Response;
+﻿using SmartPark.Borders.Dtos.ParkingLot;
+using SmartPark.Borders.Dtos.ParkingLot.Request;
+using SmartPark.Borders.Dtos.ParkingLot.Response;
 using SmartPark.Domain.Entities.ParkingLot;
 
 namespace SmartPark.Infrastructure.Adapters
@@ -13,6 +15,14 @@ namespace SmartPark.Infrastructure.Adapters
                 Name = entity.Name,
                 CarSpots = entity.CarSpots,
                 MotorcycleSpots = entity.MotorcycleSpots,
+                Address = new ParkingLotAddressDto
+                {
+                    Street = entity.Address.Street,
+                    City = entity.Address.City,
+                    Number = entity.Address.Number,
+                    State = entity.Address.State,
+                    ZipCode = entity.Address.ZipCode
+                },
                 TotalSpots = entity.TotalSpots,
             };
         }
@@ -27,6 +37,25 @@ namespace SmartPark.Infrastructure.Adapters
                 MotorcycleSpots = entity.MotorcycleSpots,
                 TotalSpots = entity.TotalSpots,
             });
+        }
+
+        public static ParkingLotEntity ToParkingLotEntity(PostParkingLotRequest entity)
+        {
+            return new ParkingLotEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = entity.Name,
+                CarSpots = entity.CarSpots,
+                MotorcycleSpots = entity.MotorcycleSpots,
+                Address = new ParkingLotAddressEntity
+                {
+                    Street = entity.Address.Street,
+                    City = entity.Address.City,
+                    Number = entity.Address.Number,
+                    State = entity.Address.State,
+                    ZipCode = entity.Address.ZipCode
+                }
+            };
         }
     }
 }

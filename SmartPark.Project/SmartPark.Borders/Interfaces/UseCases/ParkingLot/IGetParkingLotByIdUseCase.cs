@@ -1,9 +1,9 @@
-﻿using SmartPark.Borders.Interfaces.UseCases.Base;
-using SmartPark.Domain.Entities.ParkingLot;
+﻿using SmartPark.Borders.Dtos.ParkingLot.Response;
+using SmartPark.Borders.Interfaces.UseCases.Base;
 
 namespace SmartPark.Borders.Interfaces.UseCases.ParkingLot
 {
-    public interface IGetParkingLotByIdUseCase : IBaseUseCase<Guid, ParkingLotEntity?>
+    public interface IGetParkingLotByIdUseCase : IBaseUseCase<Guid, ParkingLotDto?>
     {
     }
 }

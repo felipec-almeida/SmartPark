@@ -2,7 +2,7 @@
 {
     public record GetParkingLotsRequest
     {
-        public int PageNumber { get; init; } = 1;
+        public int PageNumber { get; init; } = 0;
         public int PageSize { get; init; } = 10;
     }
 }

@@ -7,7 +7,7 @@ namespace SmartPark.Api.Configuration
     {
         public static IServiceCollection ConfigureInMemoryDb(this IServiceCollection services)
         {
-            services.AddDbContext<ParkingLotDbContext>(options =>
+            services.AddDbContext<SmartParkDbContext>(options =>
             {
                 options.UseInMemoryDatabase("SmartPark.ParkingLotDb");
             });

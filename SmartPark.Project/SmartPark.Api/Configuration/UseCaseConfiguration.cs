@@ -10,6 +10,8 @@ namespace SmartPark.Api.Configuration
             services.AddScoped<IGetParkingLotsUseCase, GetParkingLotsUseCase>();
             services.AddScoped<IGetParkingLotByIdUseCase, GetParkingLotByIdUseCase>();
             services.AddScoped<IPostParkingLotUseCase, PostParkingLotUseCase>();
+            services.AddScoped<IPatchParkingLotUseCase, PatchParkingLotUseCase>();
+            services.AddScoped<IDeleteParkingLotUseCase, DeleteParkingLotUseCase>();
 
             return services;
         }

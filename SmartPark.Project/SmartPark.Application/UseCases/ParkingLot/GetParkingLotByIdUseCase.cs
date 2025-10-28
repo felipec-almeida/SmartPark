@@ -1,6 +1,7 @@
-﻿using SmartPark.Borders.Interfaces.Repositories;
+﻿using SmartPark.Borders.Dtos.ParkingLot.Response;
+using SmartPark.Borders.Interfaces.Repositories;
 using SmartPark.Borders.Interfaces.UseCases.ParkingLot;
-using SmartPark.Domain.Entities.ParkingLot;
+using SmartPark.Infrastructure.Adapters;
 
 namespace SmartPark.Application.UseCases.ParkingLot
 {
@@ -13,9 +14,16 @@ namespace SmartPark.Application.UseCases.ParkingLot
             _parkingLotRepository = parkingLotRepository;
         }
 
-        public async Task<ParkingLotEntity?> Execute(Guid request)
+        public async Task<ParkingLotDto?> Execute(Guid request)
         {
-            return await _parkingLotRepository.GetByIdAsync(request);
+            var response = await _parkingLotRepository.GetByIdAsync(request);
+
+            if (response == null)
+                return null;
+
+            var result = ParkingLotAdapter.ToParkingLotDto(response);
+
+            return result;
         }
     }
 }

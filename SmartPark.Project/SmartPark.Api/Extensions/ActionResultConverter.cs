@@ -1,49 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartPark.Borders.Shared.Messages;
 using SmartPark.Borders.Shared.Response;
 
 namespace SmartPark.Api.Extensions
 {
-    public static class ActionResultConverter
+    public class ActionResultConverter
     {
-        public static IActionResult Convert<T>(T result)
+        public async Task<IActionResult> ExecuteActionAsync<T>(Task<T> responseTask, Type controllerType)
         {
+            var controllerName = controllerType.Name;
+
             try
             {
-                if (result == null)
+                var response = await responseTask;
+
+                if (response is null)
                 {
-                    return new NotFoundObjectResult(new
+                    return new NotFoundObjectResult(new BaseErrorResponse
                     {
-                        Message = "Recurso não encontrado."
+                        Errors = new[] { ResponseMessages.GetMessage(controllerName, 404) }
                     });
                 }
 
-                if (typeof(T).Equals(typeof(PostResponse)))
-                    return new CreatedResult(string.Empty, result);
-
-                return new OkObjectResult(result);
-            }
-            catch (ArgumentException ex)
-            {
-                return new BadRequestObjectResult(new
+                return response switch
                 {
-                    ex.Message
+                    BasePostResponse postResponse =>
+                        new CreatedResult(string.Empty, postResponse with
+                        {
+                            Message = ResponseMessages.GetMessage(controllerName, 201)
+                        }),
+
+                    BaseResponse<T> baseResponse =>
+                        new OkObjectResult(baseResponse with
+                        {
+                            Message = ResponseMessages.GetMessage(controllerName, 200)
+                        }),
+
+                    BaseErrorResponse errorResponse =>
+                        new BadRequestObjectResult(errorResponse),
+
+                    BasePatchResponse patchResponse =>
+                        new OkObjectResult(patchResponse with
+                        {
+                            Message = ResponseMessages.GetMessage(controllerName, 204)
+                        }),
+
+                    BaseDeleteResponse deleteResponse =>
+                    new OkObjectResult(deleteResponse),
+
+                    _ => new OkObjectResult(new BaseResponse<T>
+                    {
+                        Result = response,
+                        Message = ResponseMessages.GetMessage(controllerName, 200)
+                    })
+                };
+            }
+            catch (FluentValidation.ValidationException ex)
+            {
+                var errors = ex.Errors.Select(e => e.ErrorMessage);
+                return new BadRequestObjectResult(new BaseErrorResponse
+                {
+                    Errors = errors
                 });
             }
             catch (Exception ex)
             {
-                return new ObjectResult(new
+                return new ObjectResult(new BaseErrorResponse
                 {
-                    Message = "Ocorreu um erro interno no servidor.",
-                    Detail = ex.Message
+                    Errors = new[] { ResponseMessages.GetMessage(controllerName, 500), ex.Message }
                 })
                 { StatusCode = 500 };
             }
-        }
-
-        public static async Task<IActionResult> Convert<T>(Task<T> resultTask)
-        {
-            var result = await resultTask;
-            return Convert(result);
         }
     }
 }

@@ -4,7 +4,7 @@ using SmartPark.Borders.Shared.Response;
 
 namespace SmartPark.Borders.Interfaces.UseCases.ParkingLot
 {
-    public interface IPostParkingLotUseCase : IBaseUseCase<PostParkingLotRequest, BasePostResponse>
+    public interface IPatchParkingLotUseCase : IBaseUseCase<(Guid, PatchParkingLotRequest), BasePatchResponse?>
     {
     }
 }

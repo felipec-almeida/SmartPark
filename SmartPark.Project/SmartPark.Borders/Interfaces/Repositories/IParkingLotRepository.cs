@@ -1,4 +1,5 @@
-﻿using SmartPark.Borders.Shared.Response;
+﻿using SmartPark.Borders.Dtos.ParkingLot.Request;
+using SmartPark.Borders.Shared.Response;
 using SmartPark.Domain.Entities.ParkingLot;
 
 namespace SmartPark.Borders.Interfaces.Repositories
@@ -9,6 +10,10 @@ namespace SmartPark.Borders.Interfaces.Repositories
 
         Task<ParkingLotEntity?> GetByIdAsync(Guid id);
 
-        Task<PostResponse> PostAsync(ParkingLotEntity request);
+        Task<BasePostResponse> PostAsync(ParkingLotEntity request);
+
+        Task<BasePatchResponse?> PatchAsync((Guid, PatchParkingLotRequest) request);
+
+        Task<BaseDeleteResponse?> DeleteAsync(Guid id);
     }
 }
